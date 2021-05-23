@@ -9,37 +9,28 @@ import {
     Text,
     StyleSheet
 } from "react-native";
-import { theme } from "../constants";
-
+import { theme } from "../../constants";
+import OverView from './layout/OverView'
 const Home = () => (
     <View style={styles.container}>
-        <View style={styles.headerContainer}>
-            <Text style>Hi</Text>
-        </View>
         <View style={styles.statusContainer}>
+            <OverView/>
         </View>
         <View style={styles.itemsContainer}>
         </View>
     </View>
 )
 export default Home;
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    headerContainer:{
-    flex: 1,
-    alignItems:"center",
-    justifyContent:"flex-end",
-    backgroundColor:theme.colors.primary
+    statusContainer: {
+        flex: 2,
+       
     },
-    statusContainer:{
-        flex:3,
-        backgroundColor:"red"
-    },
-    itemsContainer:{
-        flex:5,
-        backgroundColor:"green"
+    itemsContainer: {
+        flex: 6,
+        backgroundColor: "green"
     }
 });
