@@ -13,9 +13,14 @@ import { useRoute } from '@react-navigation/native';
 import { theme } from "../constants";
 const Header = (props) => {
     const route = useRoute();
+    const {title, containerStyle, textStyle} = props
+    const container = [containerStyle || styles.container]
+    const headerTextStyle = [textStyle || styles.headerTextStyle]
+    const tittleText =  title || route?.name
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.headerTextStyle}>{route?.name}</Text>
+        <View style={container}>
+            <Text style={headerTextStyle}>{tittleText}</Text>
         </View>
     )
 }
