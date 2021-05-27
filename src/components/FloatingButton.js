@@ -30,7 +30,6 @@ const FloatingButton = (props) => {
     )
 }
 export default FloatingButton;
-
 const styles = StyleSheet.create({
     container: {
         alignSelf: "center",

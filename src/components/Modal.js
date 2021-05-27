@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import { theme } from '../constants';
 import Icon from 'react-native-remix-icon';
-export default (props) => {
+const CustomModal = (props) => {
     const screenHeight = Dimensions.get('screen').height;
     const panY = useRef(new Animated.Value(screenHeight)).current;
 
@@ -78,13 +78,18 @@ export default (props) => {
                         <View style={styles.sliderIndicator} />
                     </View>
                     <View style={headerTittleContainer}>
-                        {/* {title ? */}
+                        {title ?
                         <View style={headerTittleContainer}>
                             <Text style={styles.headerTittle}>{title}</Text>
                         </View>
-                        {/* :null} */}
+                        :null}
                         <TouchableOpacity
-                            hitSlop={{ top: 20, bottom: 20, left: 50, right: 40 }}
+                            hitSlop={{
+                                top: theme.sizes.padding3,
+                                bottom: theme.sizes.padding3,
+                                left: theme.sizes.padding3,
+                                right: theme.sizes.padding3
+                             }}
                             onPress={() => handleDismiss()}
                             style={styles.iconContainerStyle}>
                             <Icon name={"close-fill"}
@@ -99,7 +104,7 @@ export default (props) => {
 
     );
 };
-
+export default CustomModal;
 const styles = StyleSheet.create({
     overlay: {
         backgroundColor: 'rgba(0,0,0,0.2)',

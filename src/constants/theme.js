@@ -28,6 +28,7 @@ const sizes = {
   padding1:10,
   padding2:12,
   padding3:20,
+  padding4:16,
 
   h1: 26,
   h2: 20,

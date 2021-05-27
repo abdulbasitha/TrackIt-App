@@ -2,7 +2,7 @@
 /* Creator   : ABDUL BASITH A */
 /* Email     : ambalavanbasith@gmail.com */
 /* github    : abdulbasitha */
-import React,{useState} from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -12,31 +12,30 @@ import {
 } from "react-native";
 import { FloatingButton, Model } from "../../components";
 import { theme } from "../../constants";
-import OverView from './layout/OverView'
-import ItemsView  from './layout/ItemsView'
-const Home = () =>
-{
-    const [modelStatus , setModelStatus] = useState(false)
-return (
-    <View style={styles.container}>
-        <View style={styles.statusContainer}>
-            <OverView/>
-        </View>
-        <ScrollView style={styles.itemsContainer}>
-            <ItemsView />
-        </ScrollView >
-        <FloatingButton onPress={()=>setModelStatus(!modelStatus)}/>
-        <View></View>
-        <Model
-        title="Add Income/Expense"
-        visible={modelStatus}
-        onDismiss={()=>setModelStatus(false)}
-        >
-            <Text>Hello</Text>
+import { OverView, ItemsView, AddEditView } from './layout'
 
-        </Model>
-    </View>
-)}
+const Home = () => {
+    const [modelStatus, setModelStatus] = useState(false)
+    return (
+        <View style={styles.container}>
+            <View style={styles.statusContainer}>
+                <OverView />
+            </View>
+            <ScrollView style={styles.itemsContainer}>
+                <ItemsView />
+            </ScrollView >
+            <FloatingButton onPress={() => setModelStatus(!modelStatus)} />
+            <View></View>
+            <Model
+                title="Add Income/Expense"
+                visible={modelStatus}
+                onDismiss={() => setModelStatus(false)}
+            >
+                <AddEditView />
+            </Model>
+        </View>
+    )
+}
 export default Home;
 const styles = StyleSheet.create({
     container: {

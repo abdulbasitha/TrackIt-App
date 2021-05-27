@@ -48,9 +48,6 @@ const ItemsView = (props) => (
                 <Text>$319</Text>
             </TouchableOpacity>
         </View>
-
-
-
     </View>
 )
 export default ItemsView;

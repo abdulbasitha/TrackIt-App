@@ -38,7 +38,6 @@ const OverView = (props) => {
                 </View>
             </View>
         </View>
-
     )
 }
 export default OverView;
