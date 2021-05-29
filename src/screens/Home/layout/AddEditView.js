@@ -9,7 +9,8 @@ import {
     StyleSheet,
 
     TouchableOpacity,
-    Alert
+    Alert,
+    Platform
 } from "react-native";
 import { theme } from '../../../constants';
 import { ButtonGroup, Input } from '../../../components'
@@ -80,8 +81,6 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                 style={styles.inputContainerStyle}>
                 <Input
                     onTouchStart={() => setDatePickerVisibility(true)}
-                    editable={false}
-                    selectTextOnFocus={false}
                     error={hasErrors('date')}
                     autoCorrect={false}
                     placeholder={"Date"}
@@ -102,16 +101,25 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                 style={styles.submitTextContainerStyle}>
                 <Text style={styles.submitTextStyle}>Save</Text>
             </TouchableOpacity>
-
+            {Platform.OS == "ios" ?
             <DateTimePickerModal
-                mode="datetime"
+                mode="date"
                 display="inline"
                 textColor="black"
                 isVisible={isDatePickerVisible}
                 mode="date"
                 onConfirm={(date) => _setDate(date)}
                 onCancel={() => setDatePickerVisibility(false)}
+            /> :
+            <DateTimePickerModal
+
+                textColor="black"
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={(date) => _setDate(date)}
+                onCancel={() => setDatePickerVisibility(false)}
             />
+            }
         </View>
     )
 }
