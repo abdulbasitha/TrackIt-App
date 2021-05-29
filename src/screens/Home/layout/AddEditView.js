@@ -25,7 +25,6 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
     useEffect(() => {
 
     }, [])
-
     const validateForm = () => {
         const { type, amount, description, date } = formData;
         const temp_errors = []
@@ -77,7 +76,6 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                 />
             </View>
             <View
-
                 style={styles.inputContainerStyle}>
                 <Input
                     onTouchStart={() => setDatePickerVisibility(true)}
@@ -86,7 +84,6 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                     placeholder={"Date"}
                     placeholderTextColor={theme.colors.gray}
                     value={(formData?.date).toString()}
-
                 />
             </View>
             <TouchableOpacity
@@ -112,7 +109,6 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                 onCancel={() => setDatePickerVisibility(false)}
             /> :
             <DateTimePickerModal
-
                 textColor="black"
                 isVisible={isDatePickerVisible}
                 mode="date"
