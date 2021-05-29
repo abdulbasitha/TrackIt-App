@@ -54,6 +54,7 @@ const Home = (props) => {
 
         }else {
             dispatch(deleteIncomeExpense(IncomeExpense))
+            _setDefault()
         }
     }
 
