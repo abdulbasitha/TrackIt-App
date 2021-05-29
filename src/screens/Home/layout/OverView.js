@@ -12,7 +12,7 @@ import {
 import { theme } from "../../../constants";
 import Icon from 'react-native-remix-icon';
 
-const OverView = (props) => {
+const OverView = ({data}) => {
     const renderPriceColor = (color) => {
         return { color: color }
     }
@@ -22,16 +22,16 @@ const OverView = (props) => {
                 <View style={styles.boxItemsContainer}>
                     <View style={styles.boxItem}>
                         <Text style={styles.textStyle}> Balance</Text>
-                        <Text style={[styles.priceTextStyle, renderPriceColor(theme.colors.blue)]}> $3000</Text>
+                        <Text style={[styles.priceTextStyle, renderPriceColor(theme.colors.blue)]}> ${data?.balance}</Text>
                     </View>
                     <View style={styles.divider} />
                     <View style={styles.boxItem}>
                         <View style={[styles.boxItem, styles.boxItemPadding]}>
                             <Text style={styles.textStyle}>Income</Text>
-                            <Text style={[styles.priceTextStyle, renderPriceColor(theme.colors.green)]}> $400</Text>
+                            <Text style={[styles.priceTextStyle, renderPriceColor(theme.colors.green)]}> ${data?.income}</Text>
                         </View>
                         <View style={styles.boxItem}>
-                            <Text style={[styles.priceTextStyle, renderPriceColor(theme.colors.red)]}> $4000</Text>
+                            <Text style={[styles.priceTextStyle, renderPriceColor(theme.colors.red)]}> ${data?.expense}</Text>
                             <Text style={styles.textStyle}> Expense</Text>
                         </View>
                     </View>

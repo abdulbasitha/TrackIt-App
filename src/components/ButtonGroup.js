@@ -2,7 +2,6 @@
 /* Creator   : ABDUL BASITH A */
 /* Email     : ambalavanbasith@gmail.com */
 /* github    : abdulbasitha */
-/* More Info : https://techzia.in */
 import React from "react";
 import {
     View,
@@ -38,6 +37,7 @@ const ButtonGroup = (props) => {
         <View style={styles.container}>
             {buttons && buttons.map((name, index) =>
                 <TouchableWithoutFeedback
+                    key={`button-group-id-${index}`}
                     onPress={() => onPress(index)}
                 >
                     <View style={[buttonContainerStyle, index == selectedIndex && selectedButtonStyle, renderCornerRadius(index)]}>
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     buttonContainerStyle: {
-        padding: 15,
+        padding: theme.sizes.padding2,
         backgroundColor: theme.colors.border,
     },
     selectedButtonStyle: {

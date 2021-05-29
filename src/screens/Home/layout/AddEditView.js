@@ -2,71 +2,116 @@
 /* Creator   : ABDUL BASITH A */
 /* Email     : ambalavanbasith@gmail.com */
 /* github    : abdulbasitha */
-/* More Info : https://techzia.in */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
     StyleSheet,
-    TextInput,
+
     TouchableOpacity,
     Alert
 } from "react-native";
-import { theme } from "../../../constants";
-import { ButtonGroup } from '../../../components'
+import { theme } from '../../../constants';
+import { ButtonGroup, Input } from '../../../components'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from "moment";
+const buttonGroupOptions = ["Income", "Expense"]
+const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [errors, setError] = useState([])
+    const hasErrors = key => errors.includes(key) ? true : false
 
-const AddEditView = (props) => {
-    const [option, setOption] = useState(0)
+    useEffect(() => {
+
+    }, [])
+
+    const validateForm = () => {
+        const { type, amount, description, date } = formData;
+        const temp_errors = []
+        if (amount == "" || isNaN(amount))
+            temp_errors.push('amount')
+        if (description == "")
+            temp_errors.push('description')
+        if (date == "")
+            temp_errors.push('date')
+        setError(temp_errors)
+        if (temp_errors.length == 0) {
+            submitForm()
+        }
+    }
+    const _setDate = (date) => {
+        setFormData({ ...formData, date: moment(date).format('MMMM D, YYYY') })
+        setDatePickerVisibility(false)
+    }
     return (
         <View style={styles.container}>
-
             <ButtonGroup
-                buttons={["Income", "Expense"]}
-                selectedIndex={option}
-                onPress={setOption}
+                buttons={buttonGroupOptions}
+                selectedIndex={buttonGroupOptions?.indexOf(formData.type)}
+                onPress={(index) => setFormData({ ...formData, type: buttonGroupOptions[index] })}
             />
             <View style={styles.inputContainerStyle}>
-                <TextInput
-                    style={styles.inputStyle}
-                    autoCapitalize={false}
+                <Input
+                    error={hasErrors('amount')}
+                    keyboardType={'numeric'}
                     autoCorrect={false}
                     placeholder={"Amount"}
                     placeholderTextColor={theme.colors.gray}
+                    value={(formData?.amount).toString()}
+                    onChangeText={value => {
+                        setFormData({ ...formData, amount: value });
+                    }}
                 />
             </View>
             <View style={styles.inputContainerStyle}>
-                <TextInput
-                    style={styles.inputStyle}
-                    autoCapitalize={false}
+                <Input
+                    error={hasErrors('description')}
                     autoCorrect={false}
                     placeholder={"Description"}
+                    value={(formData?.description).toString()}
                     placeholderTextColor={theme.colors.gray}
+                    onChangeText={value => {
+                        setFormData({ ...formData, description: value });
+                    }}
                 />
             </View>
-            <View style={styles.inputContainerStyle}>
-                <TextInput
-                    style={styles.inputStyle}
-                    autoCapitalize={false}
+            <View
+
+                style={styles.inputContainerStyle}>
+                <Input
+                    onTouchStart={() => setDatePickerVisibility(true)}
+                    editable={false}
+                    selectTextOnFocus={false}
+                    error={hasErrors('date')}
                     autoCorrect={false}
                     placeholder={"Date"}
                     placeholderTextColor={theme.colors.gray}
+                    value={(formData?.date).toString()}
+
                 />
             </View>
             <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={()=>Alert.alert("Submit")}
-            hitSlop={{
-                top: theme.sizes.padding3,
-                bottom: theme.sizes.padding3,
-                left: theme.sizes.padding3,
-                right: theme.sizes.padding3
-             }}
-             style={styles.submitTextContainerStyle}>
+                activeOpacity={0.5}
+                onPress={() => validateForm()}
+                hitSlop={{
+                    top: theme.sizes.padding3,
+                    bottom: theme.sizes.padding3,
+                    left: theme.sizes.padding3,
+                    right: theme.sizes.padding3
+                }}
+                style={styles.submitTextContainerStyle}>
                 <Text style={styles.submitTextStyle}>Save</Text>
             </TouchableOpacity>
 
-
-
+            <DateTimePickerModal
+                mode="datetime"
+                display="inline"
+                textColor="black"
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={(date) => _setDate(date)}
+                onCancel={() => setDatePickerVisibility(false)}
+            />
         </View>
     )
 }
@@ -82,21 +127,18 @@ const styles = StyleSheet.create({
     },
     inputContainerStyle: {
         paddingTop: theme.sizes.base1 * 1.5,
-        width:"100%",
+        width: "100%",
     },
-    inputStyle: {
 
-        padding: theme.sizes.base1 * 1.5,
-        borderWidth: 1,
-        borderColor: theme.colors.gray,
-        borderRadius: theme.sizes.padding4 * 0.5,
+    submitTextContainerStyle: {
+        alignItems: "center",
+        marginTop: theme.sizes.padding
+    },
+    submitTextStyle: {
+        color: theme.colors.primary
+    },
+    pickerContainerStyleIOS: {
+        backgroundColor: theme.colors.gray
+    },
 
-    },
-    submitTextContainerStyle:{
-       alignItems:"center",
-       paddingTop:theme.sizes.padding
-    },
-    submitTextStyle:{
-        color:theme.colors.primary
-    }
 });

@@ -8,63 +8,58 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    SectionList,
+    ScrollView,
+
 } from "react-native";
 import { theme } from "../../../constants";
+import moment from "moment";
+const ItemsView = ({ data, onPress }) => {
 
-const ItemsView = (props) => (
-    <View style={styles.container}>
-        <View style={styles.itemsStyle}>
-            <View style={styles.headerStyle}>
-                <Text style={styles.ItemLabelTextStyle}>Today</Text>
-            </View>
-            <TouchableOpacity
-                activeOpacity={0.6}
-                style={styles.ItemContainerStyle}>
-                <Text style={styles.ItemLabelTextStyle}>Car</Text>
-                <Text>$319</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                activeOpacity={0.6}
-                style={styles.ItemContainerStyle}>
-                <Text style={styles.ItemLabelTextStyle}>Car</Text>
-                <Text>$319</Text>
-            </TouchableOpacity>
+    const _renderHeder = (date) => (
+        <View style={styles.headerStyle}>
+            <Text style={styles.ItemLabelTextStyle}>{date == moment().format('MMMM D, YYYY') ? 'Today' : date } </Text>
         </View>
-        <View style={styles.itemsStyle}>
-            <View style={styles.headerStyle}>
-                <Text style={styles.ItemLabelTextStyle}>Today</Text>
-            </View>
-            <TouchableOpacity
-                activeOpacity={0.6}
-                style={styles.ItemContainerStyle}>
-                <Text style={styles.ItemLabelTextStyle}>Car</Text>
-                <Text>$319</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                activeOpacity={0.6}
-                style={styles.ItemContainerStyle}>
-                <Text style={styles.ItemLabelTextStyle}>Car</Text>
-                <Text>$319</Text>
-            </TouchableOpacity>
+    )
+
+    const _renderItem = (data,date) => (
+        <TouchableOpacity
+            onPress={()=>onPress({...data,date:date})}
+            activeOpacity={0.6}
+            style={styles.ItemContainerStyle}>
+            <Text style={styles.ItemLabelTextStyle }>{data?.description}</Text>
+            <Text style={data?.type == "Income" ? styles.ItemLabelIncomeTextStyle:styles.ItemLabelExpenseTextStyle}>${data?.amount}</Text>
+        </TouchableOpacity>
+    )
+
+    return (
+
+        <View style={styles.container}>
+            <SectionList
+                stickySectionHeadersEnabled={true}
+                showsVerticalScrollIndicator={false}
+                sections={data}
+                keyExtractor={(item, index) => index + item.id}
+                renderSectionHeader={({ section: { date } }) => _renderHeder(date)}
+                renderItem={({ item, section: { date}}) => _renderItem(item, date)}
+            />
         </View>
-    </View>
-)
+
+    )
+}
 export default ItemsView;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: theme.sizes.base2,
+        marginHorizontal: theme.sizes.base2,
     },
     headerStyle: {
         alignItems: "center",
-    },
-    itemsStyle:{
-        paddingTop:theme.sizes.base2 * 2
+        paddingTop: theme.sizes.base2 * 2
     },
     ItemContainerStyle: {
-        flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
         padding: theme.sizes.base2,
@@ -74,7 +69,10 @@ const styles = StyleSheet.create({
         borderRadius: theme.sizes.base * 0.5,
         marginTop: theme.sizes.base1
     },
-    ItemLabelTextStyle: {
-        color: theme.colors.lightBack
-    }
+    ItemLabelIncomeTextStyle: {
+        color: theme.colors.green
+    },
+    ItemLabelExpenseTextStyle: {
+        color: theme.colors.red
+    },
 });
