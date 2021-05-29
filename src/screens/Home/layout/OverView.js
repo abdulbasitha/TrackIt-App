@@ -2,7 +2,7 @@
 /* Creator   : ABDUL BASITH A */
 /* Email     : ambalavanbasith@gmail.com */
 /* github    : abdulbasitha */
-/* More Info : https://techzia.in */
+
 import React from "react";
 import {
     View,

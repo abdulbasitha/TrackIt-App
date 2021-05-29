@@ -2,7 +2,6 @@
 /* Creator   : ABDUL BASITH A */
 /* Email     : ambalavanbasith@gmail.com */
 /* github    : abdulbasitha */
-/* More Info : https://techzia.in */
 import React from "react";
 import {
     View,
@@ -12,7 +11,7 @@ import {
 } from "react-native";
 import { theme } from "../../../constants";
 
-const DetailsView = ({ formData, action}) => (
+const DetailsView = ({ formData, action }) => (
     <View style={styles.container}>
         <View style={styles.amountLabelContainer}>
             <Text style={[styles.amountStyle, formData?.type == "Income" ? styles.incomeLabel : styles.expenseLabel]}>${formData?.amount}</Text>
@@ -25,7 +24,7 @@ const DetailsView = ({ formData, action}) => (
 
         <View style={styles.actionContainer}>
             <TouchableOpacity
-                onPress={()=> action('EDIT')}
+                onPress={() => action('EDIT')}
                 activeOpacity={0.5}
                 hitSlop={styles.hitSlop}
                 style={styles.marginBottom}>
@@ -33,7 +32,7 @@ const DetailsView = ({ formData, action}) => (
             </TouchableOpacity>
 
             <TouchableOpacity
-                 onPress={()=> action('DELETE')}
+                onPress={() => action('DELETE')}
                 activeOpacity={0.5}
                 hitSlop={styles.hitSlop}
                 style={styles.marginTop}>
@@ -54,12 +53,12 @@ const styles = StyleSheet.create({
     amountLabelContainer: {
         flex: 2,
     },
-    descriptionContainer:{
-        alignItems:"center",
-        flex:3
+    descriptionContainer: {
+        alignItems: "center",
+        flex: 3
     },
     actionContainer: {
-        flex:10,
+        flex: 10,
         alignItems: 'center',
     },
     amountStyle: {
@@ -94,10 +93,10 @@ const styles = StyleSheet.create({
         left: theme.sizes.padding3,
         right: theme.sizes.padding3
     },
-    marginTop:{
-        marginTop:theme.sizes.padding1
+    marginTop: {
+        marginTop: theme.sizes.padding1
     },
-    marginBottom:{
-        marginBottom:theme.sizes.padding1
+    marginBottom: {
+        marginBottom: theme.sizes.padding1
     }
 });

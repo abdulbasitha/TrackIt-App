@@ -7,7 +7,7 @@ export const sortByKey = (data, key, type = 'asc') => {
         return sorted.reverse()
 }
 
-export const incomeExpenseCalculate = (data)=> {
+export const incomeExpenseCalculate = (data) => {
     let income = 0
     let expense = 0
     data.forEach(items => {
@@ -19,5 +19,5 @@ export const incomeExpenseCalculate = (data)=> {
 
         })
     })
-    return {income:income, expense:expense}
+    return { income: income, expense: expense }
 }
