@@ -8,11 +8,12 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import uuid from 'react-native-uuid';
-import { FloatingButton, Model } from "../../components";
+import { FloatingButton, Model, Toast } from "../../components";
 import { theme } from "../../constants";
 import { OverView, ItemsView, AddEditView, DetailsView } from './layout'
 import { addIncomeExpense, updateIncomeExpense, deleteIncomeExpense } from '../../services/core/actions'
-import {sortByKey} from '../../helpers'
+import { toastSuccess, toastWarning } from '../../services/toast/actions'
+import { sortByKey } from '../../helpers'
 
 const Home = (props) => {
     const dispatch = useDispatch()
@@ -29,10 +30,11 @@ const Home = (props) => {
     const core = useSelector(state => state.core)
     const submitForm = () => {
         setAddEditModel(false)
-        dispatch( formMode == "ADD" ? addIncomeExpense(IncomeExpense): updateIncomeExpense(IncomeExpense))
+        dispatch(formMode == "ADD" ? addIncomeExpense(IncomeExpense) : updateIncomeExpense(IncomeExpense))
         _setDefault()
+        dispatch(toastSuccess({title:'Success', body: formMode == "ADD" ? 'Record added successfully' : 'Record updated successfully'}))
     }
-    const _clickView = (data)=>{
+    const _clickView = (data) => {
         setIncomeExpenseData({
             id: data.id,
             type: data.type,
@@ -42,19 +44,20 @@ const Home = (props) => {
         })
         setViewDetailsModel(true)
     }
-    const _detailsActionHandler = (type)=>{
+    const _detailsActionHandler = (type) => {
         setViewDetailsModel(false)
-        if (type == "EDIT"){
+        if (type == "EDIT") {
             setFormMode("EDIT")
             setAddEditModel(true)
 
-        }else {
+        } else {
             dispatch(deleteIncomeExpense(IncomeExpense))
             _setDefault()
+            dispatch(toastWarning({title:'Success', body: 'Record removed successfully'}))
         }
     }
 
-    const _setDefault = ()=>{
+    const _setDefault = () => {
         setFormMode("ADD")
         setViewDetailsModel(false)
         setAddEditModel(false)
@@ -72,7 +75,7 @@ const Home = (props) => {
             <View style={styles.statusContainer}>
                 <OverView data={core} />
             </View>
-                <ItemsView onPress={_clickView} data={sortByKey(core?.data, 'date', 'desc')} />
+            <ItemsView onPress={_clickView} data={sortByKey(core?.data, 'date', 'desc')} />
             <Model
                 title={formMode == "ADD" ? "Add Income/Expense" : "Edit Income/Expense"}
                 visible={addEditModel}
@@ -85,17 +88,16 @@ const Home = (props) => {
                     submitForm={submitForm}
                     type={formMode}
                 />
-
             </Model>
-
             <Model
-            title={IncomeExpense?.type}
-            visible={viewDetailsModel}
-            onDismiss={() =>  _setDefault()}
+                title={IncomeExpense?.type}
+                visible={viewDetailsModel}
+                onDismiss={() => _setDefault()}
             >
-                <DetailsView formData={IncomeExpense} action={_detailsActionHandler}/>
+                <DetailsView formData={IncomeExpense} action={_detailsActionHandler} />
             </Model>
             <FloatingButton onPress={() => setAddEditModel(true)} />
+            <Toast />
         </View>
     )
 }

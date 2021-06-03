@@ -38,7 +38,7 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
         const temp_errors = errors
         if (name == 'amount') {
             if (isNaN(value) || value?.indexOf(' ') >= 0) {
-                Alert.alert('Message', "Invalid amountd, please enter a valid amount")
+                Alert.alert('Message', "Invalid amount, please enter a valid amount")
                 setFormData({ ...formData, amount: '' });
             }
             isNaN(value) ? temp_errors.push('amount') : setError(removeItem(errors, 'amount'))

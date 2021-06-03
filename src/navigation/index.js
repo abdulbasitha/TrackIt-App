@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer, } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Header } from '../components'
+import { Header} from '../components'
 import * as SCREENS from '../screens'
 import * as SCREEN_NAMES from "./screen_names";
 const Stack = createStackNavigator();
