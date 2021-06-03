@@ -6,7 +6,15 @@ export const sortByKey = (data, key, type = 'asc') => {
     else
         return sorted.reverse()
 }
+export const removeItem = (data, key)=>{
+    const array = data
+    const index = array.indexOf(key);
+    if (index > -1) {
+        array.splice(index, 1);
+    }
+    return array
 
+}
 export const incomeExpenseCalculate = (data) => {
     let income = 0
     let expense = 0
@@ -21,3 +29,4 @@ export const incomeExpenseCalculate = (data) => {
     })
     return { income: income, expense: expense }
 }
+

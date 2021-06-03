@@ -1,8 +1,3 @@
-/* Date      : 28-05-2021
-/* Creator   : ABDUL BASITH A */
-/* Email     : ambalavanbasith@gmail.com */
-/* github    : abdulbasitha */
-
 import React, { useState } from "react";
 import {
     View,
@@ -14,9 +9,6 @@ import { theme } from "../constants";
 
 const Input = (props) => {
     const [focus, setFocus] = useState(false)
-    const onFocus = () => {
-
-    }
     const { error, style } = props
     const inputStyles = [
         styles.container,
@@ -25,9 +17,9 @@ const Input = (props) => {
     ];
     return (
         <TextInput
-            onFocus={() => setFocus(true)}
             onBlur={() => setFocus(false)}
-            style={[inputStyles, focus && styles.onFocusStyle]}
+            onFocus={() => setFocus(true)}
+            style={[inputStyles, (!error && focus) && styles.onFocusStyle]}
             {...props}
         />
     )

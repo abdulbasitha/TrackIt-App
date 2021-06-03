@@ -1,8 +1,3 @@
-/* Date      : 25-05-2021
-/* Creator   : ABDUL BASITH A */
-/* Email     : ambalavanbasith@gmail.com */
-/* github    : abdulbasitha */
-
 import React, { useEffect, useRef } from 'react';
 import {
     Text,
@@ -78,11 +73,11 @@ const CustomModal = (props) => {
                         <View style={styles.sliderIndicator} />
                     </View>
                     <View style={headerTittleContainer}>
-                        {title ?
+                        {title &&
                         <View style={headerTittleContainer}>
                             <Text style={styles.headerTittle}>{title}</Text>
                         </View>
-                        :null}
+                        }
                         <TouchableOpacity
                             hitSlop={{
                                 top: theme.sizes.padding3,

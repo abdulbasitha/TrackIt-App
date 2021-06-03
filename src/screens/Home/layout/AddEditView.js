@@ -1,13 +1,8 @@
-/* Date      : 27-05-2021
-/* Creator   : ABDUL BASITH A */
-/* Email     : ambalavanbasith@gmail.com */
-/* github    : abdulbasitha */
 import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
     StyleSheet,
-
     TouchableOpacity,
     Alert,
     Platform
@@ -16,15 +11,13 @@ import { theme } from '../../../constants';
 import { ButtonGroup, Input } from '../../../components'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
+import { removeItem } from "../../../helpers";
 const buttonGroupOptions = ["Income", "Expense"]
 const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [errors, setError] = useState([])
     const hasErrors = key => errors.includes(key) ? true : false
 
-    useEffect(() => {
-
-    }, [])
     const validateForm = () => {
         const { type, amount, description, date } = formData;
         const temp_errors = []
@@ -37,7 +30,24 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
         setError(temp_errors)
         if (temp_errors.length == 0) {
             submitForm()
+        } else {
+            Alert.alert('Message', `${temp_errors.join(',')} ${temp_errors.length == 1 ? 'is required field':'are required fields'}`)
         }
+    }
+    const _onChangeTextValidate = (value, name) => {
+        const temp_errors = errors
+        if (name == 'amount') {
+            if (isNaN(value) || value?.indexOf(' ') >= 0) {
+                Alert.alert('Message', "Invalid amountd, please enter a valid amount")
+                setFormData({ ...formData, amount: '' });
+            }
+            isNaN(value) ? temp_errors.push('amount') : setError(removeItem(errors, 'amount'))
+        }
+        if (name == 'description')
+            !value ? temp_errors.push('description') : setError(removeItem(errors, 'description'))
+        if (name == 'date')
+            !value ? temp_errors.push('date') : setError(removeItem(errors, 'date'))
+        setError(temp_errors)
     }
     const _setDate = (date) => {
         setFormData({ ...formData, date: moment(date).format('MMMM D, YYYY') })
@@ -60,6 +70,7 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                     value={(formData?.amount).toString()}
                     onChangeText={value => {
                         setFormData({ ...formData, amount: value });
+                        _onChangeTextValidate(value, 'amount')
                     }}
                 />
             </View>
@@ -72,6 +83,7 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                     placeholderTextColor={theme.colors.gray}
                     onChangeText={value => {
                         setFormData({ ...formData, description: value });
+                        _onChangeTextValidate(value, 'description')
                     }}
                 />
             </View>
@@ -84,6 +96,7 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                     placeholder={"Date"}
                     placeholderTextColor={theme.colors.gray}
                     value={(formData?.date).toString()}
+
                 />
             </View>
             <TouchableOpacity
@@ -99,22 +112,29 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                 <Text style={styles.submitTextStyle}>Save</Text>
             </TouchableOpacity>
             {Platform.OS == "ios" ?
-            <DateTimePickerModal
-                mode="date"
-                display="inline"
-                textColor="black"
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={(date) => _setDate(date)}
-                onCancel={() => setDatePickerVisibility(false)}
-            /> :
-            <DateTimePickerModal
-                textColor="black"
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={(date) => _setDate(date)}
-                onCancel={() => setDatePickerVisibility(false)}
-            />
+                <DateTimePickerModal
+                    mode="date"
+                    display="inline"
+                    textColor="black"
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={(date) => {
+                        _setDate(date)
+                        _onChangeTextValidate(date, 'date')
+                    }}
+                    onCancel={() => {
+                        setDatePickerVisibility(false)
+                        _onChangeTextValidate(date, 'date')
+                    }}
+
+                /> :
+                <DateTimePickerModal
+                    textColor="black"
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={(date) => _setDate(date)}
+                    onCancel={() => setDatePickerVisibility(false)}
+                />
             }
         </View>
     )

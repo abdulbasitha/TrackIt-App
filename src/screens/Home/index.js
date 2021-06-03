@@ -1,7 +1,3 @@
-/* Date      : 23-05-2021
-/* Creator   : ABDUL BASITH A */
-/* Email     : ambalavanbasith@gmail.com */
-/* github    : abdulbasitha */
 import React, { useState } from "react";
 import {
     View,

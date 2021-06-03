@@ -1,8 +1,3 @@
-/* Date      : 25-05-2021
-/* Creator   : ABDUL BASITH A */
-/* Email     : ambalavanbasith@gmail.com */
-/* github    : abdulbasitha */
-
 import React from "react";
 import {
     View,
