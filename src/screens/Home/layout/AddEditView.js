@@ -124,7 +124,7 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                     }}
                     onCancel={() => {
                         setDatePickerVisibility(false)
-                        _onChangeTextValidate(date, 'date')
+                        _onChangeTextValidate(null, 'date')
                     }}
 
                 /> :
