@@ -126,7 +126,6 @@ const AddEditView = ({ setFormData, formData, submitForm, mode }) => {
                         setDatePickerVisibility(false)
                         _onChangeTextValidate(null, 'date')
                     }}
-
                 /> :
                 <DateTimePickerModal
                     textColor="black"

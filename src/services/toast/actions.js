@@ -1,7 +1,6 @@
 import {TOAST_SUCCESS_MESSAGE, TOAST_WARNING_MESSAGE, TOAST_ERROR_MESSAGE, TOAST_DISMISS_ALL } from './actionTypes';
 
 export const toastSuccess = (data) => dispatch=>{
-    console.log("Here action")
     dispatch({ type: TOAST_SUCCESS_MESSAGE, payload:data})
 }
 export const toastError = (data) => dispatch=>{

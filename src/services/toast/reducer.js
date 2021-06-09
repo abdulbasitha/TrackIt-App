@@ -9,7 +9,6 @@ const initialState = {
 export default function (state = initialState, actions) {
     switch (actions.type) {
         case TOAST_SUCCESS_MESSAGE:
-            console.log("Here reducer")
             return {
                 ...state,
                 type: 'success',
